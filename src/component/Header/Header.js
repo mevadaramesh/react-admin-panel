@@ -1,0 +1,203 @@
+import {useState}  from 'react';
+import  {removeStorageItem} from '../../helper/helper';
+import SideBar from './Sidebar';
+import { useNavigate,Link } from "react-router-dom";
+function Header(){
+    const [show,setShow]=useState(false);
+    const [search,setSearch]=useState(null);
+    const navigate = useNavigate();
+    const handleSidebar = () => {
+      if (show) {
+          document.body.classList.remove('toggle-sidebar');
+      } else {
+        document.body.classList.add('toggle-sidebar');
+      }
+      setShow(!show);
+    };
+
+  const handleSearch = () => {
+    if(search){
+      setSearch(null);
+    }else{
+      setSearch('search-bar-show');
+    }
+  }
+  
+  const removeuser = (e) =>{ 
+    e.preventDefault();
+    removeStorageItem('userName');
+    navigate('/login');
+  }
+
+  return(
+    <>
+  <header id="header" className="header fixed-top d-flex align-items-center">
+
+    <div className="d-flex align-items-center justify-content-between">
+      <Link to={"/dashboard"} className="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="" />
+        <span className="d-none d-lg-block">NiceAdmin</span>
+      </Link>
+      <i className="bi bi-list toggle-sidebar-btn" onClick={()=> handleSidebar()}></i>
+    </div>
+
+    <div className={`search-bar ${search}`}>
+      <form className="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search
+        keyword" />
+        <button type="submit" title="Search"><i className="bi bi-search"></i></button>
+        
+      </form>
+    </div>
+
+    <nav className="header-nav ms-auto">
+      <ul className="d-flex align-items-center">
+
+        <li className="nav-item d-block d-lg-none">
+          <Link className="nav-link nav-icon search-bar-toggle" to={'javascript:void(0)'}>
+            <i className="bi bi-search" onClick={()=> handleSearch()}></i>
+          </Link>
+        </li>
+
+        <li className="nav-item dropdown">
+
+          <Link className="nav-link nav-icon" to={'javascript:void(0)'} data-bs-toggle="dropdown">
+            <i className="bi bi-bell"></i>
+            <span className="badge bg-primary badge-number">4</span>
+          </Link>
+
+          <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li className="dropdown-header">
+              You have 4 new notifications
+              <Link to={'javascript:void(0)'}><span className="badge rounded-pill bg-primary p-2
+              ms-2">View all</span></Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li className="notification-item">
+              <i className="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li className="dropdown-footer">
+              <Link to={'javascript:void(0)'}>Show all notifications</Link>
+            </li>
+
+          </ul>
+
+        </li>
+
+        <li className="nav-item dropdown">
+
+          <Link className="nav-link nav-icon" data-bs-toggle="dropdown"to={'javascript:void(0)'}>
+            <i className="bi bi-chat-left-text"></i>
+            <span className="badge bg-success badge-number">3</span>
+          </Link>
+
+          <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li className="dropdown-header">
+              You have 3 new messages
+              <Link to={'javascript:void(0)'}><span className="badge rounded-pill bg-primary p-2
+              ms-2">View all</span></Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li className="message-item">
+              <Link to={'javascript:void(0)'}>
+                <img src="assets/img/messages-3.jpg" alt=""
+                className="rounded-circle" />
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li className="dropdown-footer">
+              <Link to={'javascript:void(0)'}>Show all messages</Link>
+            </li>
+
+          </ul>
+
+        </li>
+
+        <li className="nav-item dropdown pe-3">
+
+          <Link className="nav-link nav-profile d-flex align-items-center pe-0" to={'javascript:void(0)'} data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile"
+            className="rounded-circle" />
+            <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+          </Link>
+
+          <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li className="dropdown-header">
+              <h6>Kevin Anderson</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li>
+              <Link className="dropdown-item d-flex align-items-center" to={'./dashboard'}>
+                <i className="bi bi-person"></i>
+                <span>My Profile</span>
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li>
+              <Link className="dropdown-item d-flex align-items-center" to={'javascript:void(0)'}>
+                <i className="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li>
+              <Link className="dropdown-item d-flex align-items-center" to={'javascript:void(0)'}>
+                <i className="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+
+            <li>
+              <Link className="dropdown-item d-flex align-items-center" to={'javascript:void(0)'}>
+                <i className="bi bi-box-arrow-right" ></i>
+                <span onClick={(e)=> removeuser(e)}>Sign Out</span>
+              </Link>
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+  <SideBar />
+  </>
+    )
+}
+export default Header;
